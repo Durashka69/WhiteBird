@@ -5,6 +5,7 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'apps.events',
     'apps.reqs',
     'apps.posts',
+    'apps.videos'
 ]
 
 MIDDLEWARE = [
@@ -75,23 +77,23 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": env("POSTGRES_DB"),
-        "USER": env("POSTGRES_USER"),
-        "PASSWORD": env("POSTGRES_PASSWORD"),
-        "HOST": env("POSTGRES_HOST"),
-        "PORT": env("POSTGRES_PORT"),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": env("POSTGRES_DB"),
+#         "USER": env("POSTGRES_USER"),
+#         "PASSWORD": env("POSTGRES_PASSWORD"),
+#         "HOST": env("POSTGRES_HOST"),
+#         "PORT": env("POSTGRES_PORT"),
+#     }
+# }
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -151,10 +153,16 @@ SWAGGER_SETTINGS = {
 
 
 # CSRF_TRUSTED_ORIGINS= ['localhost:3000']
-CSRF_TRUSTED_ORIGINS = ['https://white-bird-back-production.up.railway.app', 'https://white-bird-front-production.up.railway.app', 'http://localhost:3000', 'http://localhost:8000', 'htts://white-bird.kg']
+CSRF_TRUSTED_ORIGINS = [
+    'https://white-bird-back-production.up.railway.app', 
+    'https://white-bird-front-production.up.railway.app', 
+    'http://localhost:3000', 
+    'http://localhost:8000', 
+    'htts://white-bird.kg'
+]
 
 cloudinary.config( 
-  cloud_name = env("CLOUDINARY_CLOUD_NAME"), 
-  api_key = env("CLOUDINARY_API_KEY"),
-  api_secret = env("CLOUDINARY_API_SECRET")
+    cloud_name = env("CLOUDINARY_CLOUD_NAME"), 
+    api_key = env("CLOUDINARY_API_KEY"),
+    api_secret = env("CLOUDINARY_API_SECRET")
 )
