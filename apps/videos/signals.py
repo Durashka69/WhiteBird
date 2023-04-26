@@ -2,7 +2,7 @@ import os
 
 import cloudinary.uploader
 
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from .models import Video
 
@@ -22,21 +22,21 @@ from .models import Video
 #         instance.save()
 #         os.remove(input_file)
 
-# @receiver(pre_delete, sender=Video)
-# def delete_video_file(sender, instance, **kwargs):
-#     if instance.video:
-#         if os.path.isfile(instance.video.path):
-#             os.remove(instance.video.path)
+@receiver(pre_delete, sender=Video)
+def delete_video_file(sender, instance, **kwargs):
+    if instance.video:
+        if os.path.isfile(instance.video.path):
+            os.remove(instance.video.path)
 
 
-@receiver(pre_save, sender=Video)
-def compress_video(sender, instance, **kwargs):
-    if instance.video and not instance.video_compressed:
-        video = cloudinary.uploader.upload(
-            instance.video.temporary_file_path(),
-            resource_type='video',
-            quality='auto:low'
-        )
-        instance.video = video['url']
-        instance.video_compressed = True
-        print('video compressed!')
+# @receiver(pre_save, sender=Video)
+# def compress_video(sender, instance, **kwargs):
+#     if instance.video and not instance.video_compressed:
+#         video = cloudinary.uploader.upload(
+#             instance.video.temporary_file_path(),
+#             resource_type='video',
+#             quality='auto:low'
+#         )
+#         instance.video = video['url']
+#         instance.video_compressed = True
+#         print('video compressed!')
