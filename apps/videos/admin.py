@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Video
+from .models import Video, Image
 
 
 class VideoAdmin(admin.ModelAdmin):
@@ -19,3 +19,4 @@ class VideoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Video, VideoAdmin)
+admin.site.register(Image)
