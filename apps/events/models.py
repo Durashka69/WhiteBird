@@ -12,10 +12,16 @@ def generate_filename(instance, filename):
 class Event(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название')
     description = models.TextField(verbose_name="Описание")
-    image = CloudinaryField(
-        'image',
-        blank=True,
-        null=True
+    # image = CloudinaryField(
+    #     'image',
+    #     blank=True,
+    #     null=True
+    # )
+    image = models.ImageField(
+        verbose_name="Картинка", 
+        blank=True, 
+        null=True, 
+        upload_to=generate_filename
     )
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
     date_updated = models.DateTimeField(

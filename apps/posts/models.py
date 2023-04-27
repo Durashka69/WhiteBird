@@ -12,10 +12,16 @@ def generate_filename(instance, filename):
 class Post(models.Model):
     title = models.CharField(max_length=255, verbose_name="Новость")
     content = models.TextField(verbose_name="Содержание поста")
-    img = CloudinaryField(
-        'image',
-        blank=True,
-        null=True,
+    # img = CloudinaryField(
+    #     'image',
+    #     blank=True,
+    #     null=True,
+    # )
+    image = models.ImageField(
+        verbose_name="Картинка", 
+        blank=True, 
+        null=True, 
+        upload_to=generate_filename
     )
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
     date_updated = models.DateTimeField(
